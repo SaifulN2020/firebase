@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'movie_list_screen.dart';
+
 class LearnFirebase extends StatefulWidget {
   const LearnFirebase({Key? key}) : super(key: key);
 
@@ -10,8 +12,8 @@ class LearnFirebase extends StatefulWidget {
 class _LearnFirebaseState extends State<LearnFirebase> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Firebase Connect",style: const TextTheme().titleLarge,),),
+    return const MaterialApp(
+        home: MovieListScreen()
     );
   }
 }
