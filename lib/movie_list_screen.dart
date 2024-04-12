@@ -12,7 +12,8 @@ class MovieListScreen extends StatefulWidget {
 
 class _MovieListScreenState extends State<MovieListScreen> {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
- // final storage = FirebaseStorage.instance;
+  final storage = FirebaseStorage.instance;
+  final storageRef = FirebaseStorage.instance.ref();
   final List<Movie> movieList = [];
 
   @override
@@ -31,6 +32,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
       }
     });
   }
+  void getImageFromFirebase(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +42,20 @@ class _MovieListScreenState extends State<MovieListScreen> {
       appBar: AppBar(
         title:  Text("Movie List Screen"),
       ),
-      body: Center(
-        child: ListView.separated(
-            itemCount: movieList.length,
-            itemBuilder: (context,index){
-              return ListTile(
-                title: Text(movieList[index].name),
-                subtitle: Text(movieList[index].language),
-                leading: Text(movieList[index].rating),
-                trailing: Text(movieList[index].year),
-              );
+      body: ListView.separated
+        (
+          itemCount: movieList.length,
+          itemBuilder: (context,index){
+            return ListTile(
+              title: Text(movieList[index].name),
+              subtitle: Text(movieList[index].language),
+              leading: Text(movieList[index].rating),
+              trailing: Text(movieList[index].year),
+            );
 
-            },
+          },
 
-            separatorBuilder: (_,__){ return Divider();} ),
-      ),
+          separatorBuilder: (_,__){ return Divider();} ),
     );}
 }
 
