@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,16 @@ class _MovieListScreenState extends State<MovieListScreen> {
       }
     });
   }
-  void getImageFromFirebase(){
+  Future<void> getImageFromFirebase() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocDir.absolute}/file-to-upload.png';
+    File file = File(filePath);
+
+    try {
+      await mountainsRef.putFile(file);
+    } on firebase_core.FirebaseException catch (e) {
+      // ...
+    }
 
   }
 
