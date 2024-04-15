@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_firebase/firsstorage_connect.dart';
 
 import 'movie_list_screen.dart';
 
@@ -13,7 +14,7 @@ class _LearnFirebaseState extends State<LearnFirebase> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home: MovieListScreen()
+        home: ImagePick()
     );
   }
 }

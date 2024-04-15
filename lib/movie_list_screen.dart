@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import 'movie_class.dart';
+
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({Key? key}) : super(key: key);
 
@@ -20,7 +22,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
 
   @override
   void initState() {
-    _getMoviesList();
+    //_getMoviesList();
     super.initState();
   }
 
@@ -51,42 +53,51 @@ class _MovieListScreenState extends State<MovieListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Movie List Screen"),
+        title: Text("Movie List Screen"),
       ),
-      body: ListView.separated
-        (
-          itemCount: movieList.length,
-          itemBuilder: (context,index){
-            return ListTile(
-              title: Text(movieList[index].name),
-              subtitle: Text(movieList[index].language),
-              leading: Text(movieList[index].rating),
-              trailing: Text(movieList[index].year),
+      body: StreamBuilder(
+        stream: _firebaseFirestore.collection("movie").snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.hasError.toString()),
             );
+          }
+          movieList.clear();
+          for (QueryDocumentSnapshot doc in (snapshot.data?.docs ?? [])) {
+            movieList.add(
+                Movie.fromJson(doc.id, doc.data() as Map<String, dynamic>));
+            print(doc.data());
+          }
 
-          },
-
-          separatorBuilder: (_,__){ return Divider();} ),
-    );}
-}
-
-class Movie {
-  final String id, name, language, year, rating;
-
-  Movie({
-    required this.year,
-    required this.id,
-    required this.name,
-    required this.language,
-    required this.rating,
-  });
-
-  factory Movie.fromJson(String id, Map<String, dynamic> json) {
-    return Movie(
-        year: json["year"],
-        id: id,
-        name: json["name"],
-        language: json["language"],
-        rating: json["rating "] ?? "NA");
+          return ListView.separated(
+              itemCount: movieList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(movieList[index].name),
+                  subtitle: Text(movieList[index].language),
+                  leading: Text(movieList[index].rating),
+                  trailing: Text(movieList[index].year),
+                );
+              },
+              separatorBuilder: (_, __) {
+                return Divider();
+              });
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Map<String, dynamic> newMovieList = {
+            "name ": "Hahahah",
+            "year": "2006",
+            "language": "hindi",
+            "rating ": "305",
+          };
+          _firebaseFirestore.collection("movie").add(newMovieList);
+        },
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
+ 
