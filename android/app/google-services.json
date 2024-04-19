@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "220567175788",
-    "project_id": "learning-firebase-36981",
-    "storage_bucket": "learning-firebase-36981.appspot.com"
+    "project_number": "586330510232",
+    "project_id": "shopping-list-c6d4a",
+    "storage_bucket": "shopping-list-c6d4a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:220567175788:android:795468ab4f586258e40e49",
+        "mobilesdk_app_id": "1:586330510232:android:f0ca3bd7584abc672211ed",
         "android_client_info": {
           "package_name": "com.example.learn_firebase"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDE2fwyCwIbl9Z3WQFyjoKKdMhGLV1qFyw"
+          "current_key": "AIzaSyD5TqpsPDkSoVCjBFsM1CahdszZMkI4uWI"
         }
       ],
       "services": {

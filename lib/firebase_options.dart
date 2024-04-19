@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyANogEfXONnwrFxJH8uAqnOQfWc8o-Ko6A',
-    appId: '1:220567175788:web:dcb1756042b102eee40e49',
-    messagingSenderId: '220567175788',
-    projectId: 'learning-firebase-36981',
-    authDomain: 'learning-firebase-36981.firebaseapp.com',
-    storageBucket: 'learning-firebase-36981.appspot.com',
-    measurementId: 'G-KEKHMQJH7J',
+    apiKey: 'AIzaSyCwoQmju7VsB6WlL-f2Fw85iPN1PvXlMV4',
+    appId: '1:586330510232:web:d4c973ddbfb4088e2211ed',
+    messagingSenderId: '586330510232',
+    projectId: 'shopping-list-c6d4a',
+    authDomain: 'shopping-list-c6d4a.firebaseapp.com',
+    storageBucket: 'shopping-list-c6d4a.appspot.com',
+    measurementId: 'G-1WJH93VLLZ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDE2fwyCwIbl9Z3WQFyjoKKdMhGLV1qFyw',
-    appId: '1:220567175788:android:795468ab4f586258e40e49',
-    messagingSenderId: '220567175788',
-    projectId: 'learning-firebase-36981',
-    storageBucket: 'learning-firebase-36981.appspot.com',
+    apiKey: 'AIzaSyD5TqpsPDkSoVCjBFsM1CahdszZMkI4uWI',
+    appId: '1:586330510232:android:f0ca3bd7584abc672211ed',
+    messagingSenderId: '586330510232',
+    projectId: 'shopping-list-c6d4a',
+    storageBucket: 'shopping-list-c6d4a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDcaBCZHbof_2UwZst2nLdz38W-H7lKYeQ',
-    appId: '1:220567175788:ios:726cff98b7269ec2e40e49',
-    messagingSenderId: '220567175788',
-    projectId: 'learning-firebase-36981',
-    storageBucket: 'learning-firebase-36981.appspot.com',
+    apiKey: 'AIzaSyBV6pk1FjDZuDdo8MkP2tyv5YZdG12kFgA',
+    appId: '1:586330510232:ios:ff81f8c78922a2e32211ed',
+    messagingSenderId: '586330510232',
+    projectId: 'shopping-list-c6d4a',
+    storageBucket: 'shopping-list-c6d4a.appspot.com',
     iosBundleId: 'com.example.learnFirebase',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDcaBCZHbof_2UwZst2nLdz38W-H7lKYeQ',
-    appId: '1:220567175788:ios:01f12920b41acbc0e40e49',
-    messagingSenderId: '220567175788',
-    projectId: 'learning-firebase-36981',
-    storageBucket: 'learning-firebase-36981.appspot.com',
+    apiKey: 'AIzaSyBV6pk1FjDZuDdo8MkP2tyv5YZdG12kFgA',
+    appId: '1:586330510232:ios:31a9d11b620270fe2211ed',
+    messagingSenderId: '586330510232',
+    projectId: 'shopping-list-c6d4a',
+    storageBucket: 'shopping-list-c6d4a.appspot.com',
     iosBundleId: 'com.example.learnFirebase.RunnerTests',
   );
 }

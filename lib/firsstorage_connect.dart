@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,9 +14,10 @@ class ImagePick extends StatefulWidget {
 
 class _ImagePickState extends State<ImagePick> {
   final storage = FirebaseStorage.instance;
-  ImagePicker imagePick = ImagePicker();
+  String uniqueFilaName = DateTime.now().microsecondsSinceEpoch.toString();
 
-  final List<String> imagePath = [];
+  ImagePicker imagePick = ImagePicker();
+  String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +29,34 @@ class _ImagePickState extends State<ImagePick> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                hintText: "Write the pic name",
+                hintText: "Enter the item name",
               ),
             ),
             TextFormField(
-              decoration: const InputDecoration(hintText: "details of image"),
+              decoration: const InputDecoration(hintText: "Enter the item quantity"),
             ),
             IconButton(
-                onPressed: () {
-                  //imagePick.pickImage(source: ImageSource.camera);
-                  imagePick.pickImage(source: ImageSource.gallery);
+                onPressed: () async {
+                  XFile? file =
+                      await imagePick.pickImage(source: ImageSource.camera);
+                  //imagePick.pickImage(source: ImageSource.gallery);
+                  print("${file?.path}");
+
+                  if (file == null) return;
+                  Reference referenceRoot = FirebaseStorage.instance.ref();
+                  Reference referenceDirImage = referenceRoot.child("image");
+                  Reference referenceImageToUpload =
+                      referenceDirImage.child(uniqueFilaName);
+                  try {
+                    await referenceImageToUpload.putFile(File(file!.path));
+                    imageUrl = await referenceImageToUpload.getDownloadURL();
+                  } catch (error) {}
                 },
                 icon: const Icon(Icons.camera)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.browse_gallery))
+            TextButton(onPressed:(){
+
+
+            }, child: Text("Submit"))
           ],
         )
         // GridView.builder(

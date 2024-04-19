@@ -21,8 +21,14 @@ class _MovieListScreenState extends State<MovieListScreen> {
   final List<Movie> movieList = [];
 
   @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
+  @override
   void initState() {
-    //_getMoviesList();
+    _getMoviesList();
     super.initState();
   }
 
@@ -35,69 +41,56 @@ class _MovieListScreenState extends State<MovieListScreen> {
         print(doc.data());
       }
     });
-  }
-  Future<void> getImageFromFirebase() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocDir.absolute}/file-to-upload.png';
-    File file = File(filePath);
 
-    try {
-      await mountainsRef.putFile(file);
-    } on firebase_core.FirebaseException catch (e) {
-      // ...
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("Movie List Screen"),
+        ),
+        body: StreamBuilder(
+          stream: _firebaseFirestore.collection("movie").snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.hasError.toString()),
+              );
+            }
+            movieList.clear();
+            for (QueryDocumentSnapshot doc in (snapshot.data?.docs ?? [])) {
+              movieList.add(
+                  Movie.fromJson(doc.id, doc.data() as Map<String, dynamic>));
+              print(doc.data());
+            }
+
+            return ListView.separated(
+                itemCount: movieList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(movieList[index].name),
+                    subtitle: Text(movieList[index].language),
+                    leading: Text(movieList[index].rating),
+                    trailing: Text(movieList[index].year),
+                  );
+                },
+                separatorBuilder: (_, __) {
+                  return Divider();
+                });
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Map<String, dynamic> newMovieList = {
+              "name ": "Hahahah",
+              "year": "2006",
+              "language": "hindi",
+              "rating ": "305",
+            };
+            _firebaseFirestore.collection("movie").add(newMovieList);
+          },
+          child: Icon(Icons.add),
+        ),
+      );
     }
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Movie List Screen"),
-      ),
-      body: StreamBuilder(
-        stream: _firebaseFirestore.collection("movie").snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.hasError.toString()),
-            );
-          }
-          movieList.clear();
-          for (QueryDocumentSnapshot doc in (snapshot.data?.docs ?? [])) {
-            movieList.add(
-                Movie.fromJson(doc.id, doc.data() as Map<String, dynamic>));
-            print(doc.data());
-          }
-
-          return ListView.separated(
-              itemCount: movieList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(movieList[index].name),
-                  subtitle: Text(movieList[index].language),
-                  leading: Text(movieList[index].rating),
-                  trailing: Text(movieList[index].year),
-                );
-              },
-              separatorBuilder: (_, __) {
-                return Divider();
-              });
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Map<String, dynamic> newMovieList = {
-            "name ": "Hahahah",
-            "year": "2006",
-            "language": "hindi",
-            "rating ": "305",
-          };
-          _firebaseFirestore.collection("movie").add(newMovieList);
-        },
-        child: Icon(Icons.add),
-      ),
-    );
   }
 }
- 
