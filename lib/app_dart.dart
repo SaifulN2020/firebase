@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learn_firebase/firebase_register.dart';
 import 'package:learn_firebase/firsstorage_connect.dart';
+import 'package:learn_firebase/photo_app.dart';
+import 'package:learn_firebase/photo_titile_details.dart';
 import 'package:learn_firebase/shoping_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -18,10 +21,13 @@ class _LearnFirebaseState extends State<LearnFirebase> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-        home: //MovieListScreen()
+        home: PhotoApp()
+      //BlogWithPhoto()
+        //FirebaseRegister()
+      //MovieListScreen()
         //ImagePick()
       //ShopingList()
-      FirebaseFirestorageDemo()
+      //FirebaseFirestorageDemo()
     );
   }
 }
